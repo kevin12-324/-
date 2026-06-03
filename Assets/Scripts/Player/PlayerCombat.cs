@@ -17,6 +17,7 @@ public class PlayerCombat : MonoBehaviour
     public float bulletDamage = 10f;
     public float bulletLifetime = 5f; // 탄환이 사라지는 시간
     public int bulletsPerShot = 1; // 한 번에 발사되는 탄환 개수
+    private float bulletKnockback = 0f; // 탄환 넉백 (기본값 0)
 
     [Header("조준")]
     public float detectionRange = 15f; // 적 감지 범위
@@ -85,7 +86,7 @@ public class PlayerCombat : MonoBehaviour
     }
 
     /// <summary>
-    /// 적이 화면 내에 보이는지 확인합니다
+    /// 적이 화�� 내에 보이는지 확인합니다
     /// </summary>
     private bool IsEnemyVisible(Enemy enemy)
     {
@@ -129,6 +130,12 @@ public class PlayerCombat : MonoBehaviour
                 
                 // 탄환 초기화
                 bulletScript.Initialize(direction, bulletSpeed, bulletDamage, bulletLifetime);
+                
+                // 넉백 설정
+                if (bulletKnockback > 0)
+                {
+                    bulletScript.SetKnockbackForce(bulletKnockback);
+                }
             }
         }
     }
@@ -166,9 +173,18 @@ public class PlayerCombat : MonoBehaviour
         bulletDamage *= (1f + percentage / 100f);
     }
 
+    /// <summary>
+    /// 넉백 강도를 설정합니다
+    /// </summary>
+    public void SetKnockback(float force)
+    {
+        bulletKnockback = force;
+    }
+
     // Getter 메서드들
     public float GetShootCooldown() => shootCooldown;
     public float GetBulletDamage() => bulletDamage;
     public float GetBulletSpeed() => bulletSpeed;
     public int GetBulletsPerShot() => bulletsPerShot;
+    public float GetKnockback() => bulletKnockback;
 }

@@ -95,7 +95,8 @@ public class ExperienceSystem : MonoBehaviour
                 break;
 
             case SkillType.BulletKnockback:
-                // 탄환에 넉백 효과 추가
+                // 적 밀치기: 탄환에 넉백 효과 추가
+                playerCombat.SetKnockback(5f);
                 break;
         }
 
@@ -154,7 +155,7 @@ public class ExperienceSystem : MonoBehaviour
                 return new PassiveSkill { skillName = "이동 속도 🚀", skillDescription = "이동 속도가 1 증가합니다", skillType = skillType };
 
             case SkillType.BulletKnockback:
-                return new PassiveSkill { skillName = "적 밀치기 👊", skillDescription = "탄환이 적을 더 강하게 밀어냅니다", skillType = skillType };
+                return new PassiveSkill { skillName = "적 밀치기 👊", skillDescription = "탄환이 적을 밀어냅니다", skillType = skillType };
 
             default:
                 return new PassiveSkill { skillName = "알 수 없음", skillDescription = "", skillType = skillType };

@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     private float damage;
     private float lifetime;
     private float elapsedTime = 0f;
-    private float knockbackForce = 3f; // 적을 밀어내는 힘
+    private float knockbackForce = 0f; // 기본값 0 (넉백 없음)
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
@@ -72,8 +72,11 @@ public class Bullet : MonoBehaviour
             {
                 enemy.TakeDamage(damage);
                 
-                // 적 밀치기 효과
-                ApplyKnockback(enemy);
+                // 넉백이 설정되어 있으면 적용
+                if (knockbackForce > 0)
+                {
+                    ApplyKnockback(enemy);
+                }
                 
                 DestroyBullet();
             }
@@ -112,4 +115,5 @@ public class Bullet : MonoBehaviour
     // Getter 메서드들
     public float GetDamage() => damage;
     public Vector2 GetDirection() => direction;
+    public float GetKnockbackForce() => knockbackForce;
 }
