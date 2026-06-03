@@ -24,6 +24,10 @@ public class Enemy : MonoBehaviour
     [Header("경험치")]
     public int experienceValue = 10;
 
+    [Header("고기 드롭")]
+    public GameObject meatPrefab;
+    public float meatDropChance = 0.3f; // 30% 확률로 고기 드롭
+
     private Transform playerTransform;
     private PlayerController playerController;
     private bool isAlive = true;
@@ -147,6 +151,13 @@ public class Enemy : MonoBehaviour
 
         // 점수 추가
         GameManager.Instance.AddScore(experienceValue);
+
+        // 고기 드롭 (확률)
+        if (Random.value < meatDropChance && meatPrefab != null)
+        {
+            GameObject meat = Instantiate(meatPrefab, transform.position, Quaternion.identity);
+            Debug.Log("고기 드롭!");
+        }
 
         // 적 제거
         Destroy(gameObject);
